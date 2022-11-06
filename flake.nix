@@ -33,12 +33,13 @@
       rsPkgs = pkgs.rustBuilder.makePackageSet {
         rustVersion = "2022-10-24";
         rustChannel = "nightly";
+        extraRustComponents = ["rustfmt" "clippy" "rust-src" ];
         packageFun = import ./Cargo.nix;
       };
     in {
       formatter = nobbz.formatter.${system};
 
-      packages.rs-tool = (rsPkgs.workspace.rs-tool {}).bin;
+      packages.rs-tool = (rsPkgs.workspace.rs-tool {});
       packages.default = self.packages.${system}.rs-tool;
 
       apps.test = {
