@@ -31,9 +31,9 @@
       };
 
       rsPkgs = pkgs.rustBuilder.makePackageSet {
-        rustVersion = "2022-10-24";
+        rustVersion = "2022-11-05";
         rustChannel = "nightly";
-        extraRustComponents = ["rustfmt" "clippy" "rust-src" ];
+        extraRustComponents = ["rustfmt" "clippy" "rust-src" "rust-analyzer"];
         packageFun = import ./Cargo.nix;
       };
     in {
@@ -51,7 +51,7 @@
         packages = builtins.attrValues {
           inherit (nobbz.packages.${system}) nil;
           inherit (cargo2nix.packages.${system}) default;
-          inherit (pkgs) rust-analyzer cargo-outdated;
+          inherit (pkgs) cargo-outdated;
         };
       };
     });
